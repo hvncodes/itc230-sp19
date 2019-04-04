@@ -1,0 +1,22 @@
+{
+  "name": "itc230",
+  "version": "1.0.0",
+  "description": "ITC 230 - Advanced Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hvncodes/itc230-sp19.git"
+  },
+  "author": "John Nguyen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hvncodes/itc230-sp19/issues"
+  },
+  "homepage": "https://github.com/hvncodes/itc230-sp19#readme",
+  "keywords": [
+    "package"
+  ]
+}
