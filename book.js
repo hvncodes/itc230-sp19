@@ -10,9 +10,13 @@ var books = [
 function getAll() {
     books.map( function(item) {
         return { title : item.title, author : item.author, pubdate : item.pubdate }
-    })
+    });
 };
 
 function get(n) {
-    return books[n]
+    return books[n];
+};
+
+function del(n) {
+    return books.splice(n,1);
 };
