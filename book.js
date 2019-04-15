@@ -6,3 +6,9 @@ var books = [
     { title:"War and Peace", author:"Leo Tolstoy", pubdate:1869 },
     { title:"The Great Gatsby", author:"F. Scott Fitzgerald", pubdate:1925 },
 ];
+
+function getAll() {
+    books.map( function(item) {
+        return { title : item.title, author : item.author, pubdate : item.pubdate }
+    })
+}
