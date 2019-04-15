@@ -8,13 +8,15 @@ var books = [
 ];
 
 function getAll() {
-    books.map( function(item) {
-        return { title : item.title, author : item.author, pubdate : item.pubdate }
-    });
+    // books.map( function(item) {
+    //     return { title : item.title, author : item.author, pubdate : item.pubdate }
+    // });
+    return books.slice();
 };
 
-function get(n) {
-    return books[n];
+function get(key) {
+    var index = books.indexOf(key);
+    return books[index][key];
 };
 
 function del(n) {
