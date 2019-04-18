@@ -7,37 +7,35 @@ var books = [
     { title:"The Great Gatsby", author:"F. Scott Fitzgerald", pubdate:1925 },
 ];
 
-function getAll() {
+exports.getAll = function() {
     // books.map( function(item) {
     //     return { title : item.title, author : item.author, pubdate : item.pubdate }
     // });
     return books.slice();
 };
 
-exports.myHandler = function(event, context, callback) {   
-    ... function code   
-    callback(null, "some success message");
+//exports.myHandler = function(event, context, callback) {   
+    //... function code   
+    //callback(null, "some success message");
    // or 
    // callback("some error type"); 
-}
+//}
 
-function get(key) {
+exports.get = function(key) {
     var myVar = key;
     var myFunction = function(book) {
-        return book.title === myVar
+        return book.title === myVar;
     };
-    books.find(myFunction, myVar);
+    return books.find(myFunction, myVar);
 };
 
-function del(n) {
+exports.delete = function(n) {
     return books.splice(n,1);
 };
 
-console.log(books.get("War and Peace"));
-
 //working
-var myVar = "The Great Gatsby";
-var myFunction = function(book) {
-    return book.title === myVar;
-};
-console.log(books.find(myFunction, myVar));
+// var myVar = "The Great Gatsby";
+// var myFunction = function(book) {
+//     return book.title === myVar;
+// };
+// console.log(books.find(myFunction, myVar));

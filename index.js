@@ -1,7 +1,10 @@
 const http = require("http");
 http.createServer((req, res) => {
     const path = req.url.toLowerCase();
-    var book = require("./lib/book.js");
+    var books = require("./book.js");
+    console.log(books.get("War and Peace"));
+    console.log(books.getAll());
+    console.log(books.delete(2));
     switch (path) {
         case '/':
             const fs = require("fs");
