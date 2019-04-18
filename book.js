@@ -29,8 +29,9 @@ exports.get = function(key) {
     return books.find(myFunction, myVar);
 };
 
-exports.delete = function(n) {
-    return books.splice(n,1);
+exports.delete = function(index) {
+    //locate index of key, delete array element at index of key
+    return books.splice(index,1);
 };
 
 //working
