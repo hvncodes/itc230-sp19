@@ -14,11 +14,30 @@ function getAll() {
     return books.slice();
 };
 
+exports.myHandler = function(event, context, callback) {   
+    ... function code   
+    callback(null, "some success message");
+   // or 
+   // callback("some error type"); 
+}
+
 function get(key) {
-    var index = books.indexOf(key);
-    return books[index][key];
+    var myVar = key;
+    var myFunction = function(book) {
+        return book.title === myVar
+    };
+    books.find(myFunction, myVar);
 };
 
 function del(n) {
     return books.splice(n,1);
 };
+
+console.log(books.get("War and Peace"));
+
+//working
+var myVar = "The Great Gatsby";
+var myFunction = function(book) {
+    return book.title === myVar;
+};
+console.log(books.find(myFunction, myVar));
