@@ -11,8 +11,9 @@ exports.getAll = function() {
     // books.map( function(item) {
     //     return { title : item.title, author : item.author, pubdate : item.pubdate }
     // });
-    //return copy of array
-    return books.slice();
+    //return copy of array books.slice()
+    //return the array
+    return books;
 };
 
 //exports.myHandler = function(event, context, callback) {   
@@ -23,11 +24,10 @@ exports.getAll = function() {
 //}
 
 exports.get = function(key) {
-    var myVar = key;
     var myFunction = function(book) {
-        return book.title === myVar;
+        return book.title === key;
     };
-    return books.find(myFunction, myVar);
+    return books.find(myFunction, key);
 };
 
 exports.delete = function(key) {

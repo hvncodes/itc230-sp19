@@ -1,4 +1,5 @@
 const http = require("http");
+var querystring = require('querystring');
 http.createServer((req, res) => {
     const path = req.url.toLowerCase();
     var books = require("./book.js");
@@ -12,6 +13,11 @@ http.createServer((req, res) => {
     console.log(books.getAll());
     //get URL with window.location.href, nope
     console.log(req.url);
+    //https://itc230-sp19-cogcodes.c9users.io/?hello=worlds
+    var params = req.url.split("?");
+    var q = querystring.parse(params[1]);
+    console.log(q);
+    console.log(q.hello);
     switch (path) {
         case '/':
             const fs = require("fs");
