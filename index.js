@@ -2,9 +2,16 @@ const http = require("http");
 http.createServer((req, res) => {
     const path = req.url.toLowerCase();
     var books = require("./book.js");
-    console.log(books.get("War and Peace"));
+    console.log("Initiate get():");
+    console.log(books.get("Moby Dick"));
+    console.log("Initiate getAll()():");
     console.log(books.getAll());
-    console.log(books.delete(2));
+    console.log("Initiate delete():");
+    console.log(books.delete("War and Peace"));
+    console.log("Array after deletion:");
+    console.log(books.getAll());
+    //get URL with window.location.href, nope
+    console.log(req.url);
     switch (path) {
         case '/':
             const fs = require("fs");

@@ -11,6 +11,7 @@ exports.getAll = function() {
     // books.map( function(item) {
     //     return { title : item.title, author : item.author, pubdate : item.pubdate }
     // });
+    //return copy of array
     return books.slice();
 };
 
@@ -29,9 +30,16 @@ exports.get = function(key) {
     return books.find(myFunction, myVar);
 };
 
-exports.delete = function(index) {
+exports.delete = function(key) {
+    //this only looks filters array. it doesn't change the original
+    var myVar = key;
+    var myFunction = function(book) {
+        return book.title !== myVar;
+    };
+    return books.filter(myFunction, myVar);
+    //use findIndex() and then splice() to delete array element
     //locate index of key, delete array element at index of key
-    return books.splice(index,1);
+    //return books.splice(index,1);
 };
 
 //working
