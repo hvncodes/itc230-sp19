@@ -6,8 +6,8 @@ http.createServer((req, res) => {
     // req.url = /get?hello=world
     // after split: [ '/get', 'title=dune' ]
     var url = req.url.split("?");
-    var q = querystring.parse(url[1]);
-    var path = url[0];
+    var q = querystring.parse(url[1]); // example: '/get'
+    var path = url[0]; // example: 'title=dune'
     switch (path) {
         case '/':
             const fs = require("fs");
@@ -22,10 +22,10 @@ http.createServer((req, res) => {
             res.end('About page');
             break;
         case '/get':
-            var qvalue = books.get(q.title);
+            var qvalue = JSON.stringify(books.get(q.title));
             var text;
             if (qvalue !== undefined) {
-                text = JSON.stringify(qvalue);
+                text = qvalue;
             } else {
                 text = "Not found."
             }
@@ -33,12 +33,19 @@ http.createServer((req, res) => {
             res.end(text);
             break;
         case '/delete':
+            var qvalue = JSON.stringify(books.delete(q.title));
+            var text;
+            if (qvalue !== undefined) {
+                text = qvalue + " removed";
+            } else {
+                text = qvalue + " not removed"
+            }
             res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('DEL');
+            res.end(text);
             break;
         default:
             res.writeHead(404, { 'Content-Type': 'text/plain' });
-            res.end('Not found');
+            res.end('Not found.');
             break;
     }
 }).listen(process.env.PORT || 3000);

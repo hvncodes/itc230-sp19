@@ -6,12 +6,12 @@ var books = [
     { title:"The Great Gatsby", author:"F. Scott Fitzgerald", pubdate:1925 },
 ];
 
-//simply returns the array, not any copies or transforms
+// simply returns the array, not any copies or transforms
 exports.getAll = function() {
     return books;
 };
 
-//returns request book element where element's title matches key
+// returns request book element where element's title matches key
 exports.get = function(key) {
     var myFunction = function(book) {
         return book.title.toLowerCase() === key.toLowerCase();
@@ -19,13 +19,13 @@ exports.get = function(key) {
     return books.find(myFunction, key);
 };
 
-//uses methods findIndex() and splice() to locate and delete array element
+// uses methods findIndex() and splice() to locate and delete array element
 exports.delete = function(key) {
-    //locate index of key
+    // locate index of key
     var myFunction = function(book) {
         return book.title.toLowerCase() === key.toLowerCase();
     };
     var index = books.findIndex(myFunction);
-    //delete array element at index of key
+    // delete array element at index of key
     return books.splice(index,1);
 };
