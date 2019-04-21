@@ -2,23 +2,12 @@ const http = require("http");
 const querystring = require('querystring');
 http.createServer((req, res) => {
     var books = require("./book.js");
-    //console.log("Initiate get():");
-    //console.log(books.get("Moby Dick"));
-    //console.log("Initiate getAll()():");
     console.log(books.getAll());
-    console.log("Initiate delete():");
-    console.log(books.delete("War and Peace"));
-    console.log("Array after deletion:");
-    console.log(books.getAll());
-    console.log(req.url);
-    //https://itc230-sp19-cogcodes.c9users.io/?hello=worlds
-    //req.url.toLowerCase()
+    // req.url = /get?hello=world
+    // after split: [ '/get', 'title=dune' ]
     var url = req.url.split("?");
     var q = querystring.parse(url[1]);
-    var path = url[0].toLowerCase();
-    console.log("q: ");
-    console.log(q);
-    console.log("q.title: " + q.title);
+    var path = url[0];
     switch (path) {
         case '/':
             const fs = require("fs");
@@ -33,11 +22,15 @@ http.createServer((req, res) => {
             res.end('About page');
             break;
         case '/get':
-            console.log("testing: ");
-            console.log(books.get(q.title));
-            var qvalue = books.get(q.title)
+            var qvalue = books.get(q.title);
+            var text;
+            if (qvalue !== undefined) {
+                text = JSON.stringify(qvalue);
+            } else {
+                text = "Not found."
+            }
             res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end(JSON.stringify(qvalue));
+            res.end(text);
             break;
         case '/delete':
             res.writeHead(200, { 'Content-Type': 'text/plain' });
