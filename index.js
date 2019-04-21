@@ -1,23 +1,23 @@
 const http = require("http");
-var querystring = require('querystring');
+const querystring = require('querystring');
 http.createServer((req, res) => {
     const path = req.url.toLowerCase();
     var books = require("./book.js");
-    console.log("Initiate get():");
-    console.log(books.get("Moby Dick"));
-    console.log("Initiate getAll()():");
+    //console.log("Initiate get():");
+    //console.log(books.get("Moby Dick"));
+    //console.log("Initiate getAll()():");
     console.log(books.getAll());
     console.log("Initiate delete():");
     console.log(books.delete("War and Peace"));
     console.log("Array after deletion:");
     console.log(books.getAll());
-    //get URL with window.location.href, nope
     console.log(req.url);
     //https://itc230-sp19-cogcodes.c9users.io/?hello=worlds
-    var params = req.url.split("?");
+    //req.url.toLowerCase()
+    /*var params = path.split("?");
     var q = querystring.parse(params[1]);
     console.log(q);
-    console.log(q.hello);
+    console.log(q.hello);*/
     switch (path) {
         case '/':
             const fs = require("fs");

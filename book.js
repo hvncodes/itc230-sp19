@@ -30,16 +30,22 @@ exports.get = function(key) {
     return books.find(myFunction, key);
 };
 
+/*
+let foundIndex = students.findIndex((student) => {
+    return student.name === 'mary';
+});
+*/
+
+//use methods findIndex() and splice() to locate and delete array element
 exports.delete = function(key) {
-    //this only looks filters array. it doesn't change the original
-    var myVar = key;
-    var myFunction = function(book) {
-        return book.title !== myVar;
-    };
-    return books.filter(myFunction, myVar);
-    //use findIndex() and then splice() to delete array element
-    //locate index of key, delete array element at index of key
-    //return books.splice(index,1);
+    //locate index of key
+    var index = books.findIndex((book) => {
+        return book.title === key;
+    });
+    console.log(key);
+    console.log(index);
+    //delete array element at index of key
+    return books.splice(index,1);
 };
 
 //working
