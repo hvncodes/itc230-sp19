@@ -26,6 +26,10 @@ exports.delete = function(key) {
         return book.title.toLowerCase() === key.toLowerCase();
     };
     var index = books.findIndex(myFunction);
+    // It returns index of the first element in a given array that satisfies
+    // the provided testing function. Otherwise -1 is returned.
+    // splice: If (start is) negative, begins that many elements from the end
+    // thus, we check for index being negative or not and decide from there
     // delete array element at index of key
     return books.splice(index,1);
 };
