@@ -1,7 +1,6 @@
 const http = require("http");
 const querystring = require('querystring');
 http.createServer((req, res) => {
-    const path = req.url.toLowerCase();
     var books = require("./book.js");
     //console.log("Initiate get():");
     //console.log(books.get("Moby Dick"));
@@ -14,10 +13,12 @@ http.createServer((req, res) => {
     console.log(req.url);
     //https://itc230-sp19-cogcodes.c9users.io/?hello=worlds
     //req.url.toLowerCase()
-    /*var params = path.split("?");
-    var q = querystring.parse(params[1]);
+    var url = req.url.split("?");
+    var q = querystring.parse(url[1]);
+    var path = url[0].toLowerCase();
+    console.log("q: ");
     console.log(q);
-    console.log(q.hello);*/
+    console.log("q.title: " + q.title);
     switch (path) {
         case '/':
             const fs = require("fs");
@@ -32,8 +33,11 @@ http.createServer((req, res) => {
             res.end('About page');
             break;
         case '/get':
+            console.log("testing: ");
+            console.log(books.get(q.title));
+            var qvalue = books.get(q.title)
             res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('GET');
+            res.end(JSON.stringify(qvalue));
             break;
         case '/delete':
             res.writeHead(200, { 'Content-Type': 'text/plain' });

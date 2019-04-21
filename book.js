@@ -14,7 +14,7 @@ exports.getAll = function() {
 //returns request book element where element's title matches key
 exports.get = function(key) {
     var myFunction = function(book) {
-        return book.title === key;
+        return book.title.toLowerCase() === key.toLowerCase();
     };
     return books.find(myFunction, key);
 };
@@ -23,7 +23,7 @@ exports.get = function(key) {
 exports.delete = function(key) {
     //locate index of key
     var myFunction = function(book) {
-        return book.title === key;
+        return book.title.toLowerCase() === key.toLowerCase();
     };
     var index = books.findIndex(myFunction);
     //delete array element at index of key
