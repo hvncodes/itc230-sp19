@@ -13,20 +13,19 @@ exports.getAll = function() {
 
 // returns request book element where element's title matches key
 exports.get = function(key) {
-    var myFunction = function(book) {
-        return book.title.toLowerCase() === key.toLowerCase();
-    };
-    return books.find(myFunction, key);
+    return books.find((book) => {
+        return book.title.toLowerCase() === key.toLowerCase()
+    }, key);
 };
 
 // uses methods findIndex() and splice() to locate and delete array element
 // returns deleted array, if any
 exports.delete = function(key) {
     // locate index of key
-    var myFunction = function(book) {
-        return book.title.toLowerCase() === key.toLowerCase();
-    };
-    var index = books.findIndex(myFunction);
+    var index = books.findIndex((book) => {
+        return book.title.toLowerCase() === key.toLowerCase()
+    });
+    
     // It returns index of the first element in a given array that satisfies
     // the provided testing function. Otherwise -1 is returned.
     // splice: If (start is) negative, begins that many elements from the end
