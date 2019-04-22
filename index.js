@@ -8,6 +8,7 @@ http.createServer((req, res) => {
     var url = req.url.split("?");
     var q = querystring.parse(url[1]); // example: '/get'
     var path = url[0]; // example: 'title=dune'
+    
     switch (path) {
         case '/':
             const fs = require("fs");
@@ -33,12 +34,14 @@ http.createServer((req, res) => {
             res.end(text);
             break;
         case '/delete':
+            //var oldBooksLength = Object.keys(books.getAll()).length;
             var qvalue = JSON.stringify(books.delete(q.title));
+            //var newBooksLength = Object.keys(books.getAll()).length;
             var text;
             if (qvalue !== undefined) {
-                text = qvalue + " removed";
+                text = q.title + " removed";
             } else {
-                text = qvalue + " not removed"
+                text = q.title + " not removed"
             }
             res.writeHead(200, { 'Content-Type': 'text/plain' });
             res.end(text);

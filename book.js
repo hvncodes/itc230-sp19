@@ -20,6 +20,7 @@ exports.get = function(key) {
 };
 
 // uses methods findIndex() and splice() to locate and delete array element
+// returns deleted array, if any
 exports.delete = function(key) {
     // locate index of key
     var myFunction = function(book) {
@@ -31,5 +32,10 @@ exports.delete = function(key) {
     // splice: If (start is) negative, begins that many elements from the end
     // thus, we check for index being negative or not and decide from there
     // delete array element at index of key
-    return books.splice(index,1);
+    if (index >= 0) {
+        return books.splice(index,1);
+    } else { // index = -1
+        return undefined;
+    }
+    
 };
