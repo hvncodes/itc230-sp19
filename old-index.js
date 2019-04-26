@@ -1,8 +1,3 @@
-'use strict'
-const express = require("express");
-const bodyParser = require("body-parser")
-const app = express();
-
 const http = require("http");
 const querystring = require('querystring');
 const fs = require("fs");

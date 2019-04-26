@@ -7,12 +7,12 @@ var books = [
 ];
 
 // simply returns the array, not any copies or transforms
-exports.getAll = function() {
+exports.getAll = () => {
     return books;
 };
 
 // returns request book element where element's title matches key
-exports.get = function(key) {
+exports.get = (key) => {
     return books.find((book) => {
         return book.title.toLowerCase() === key.toLowerCase()
     }, key);
@@ -20,7 +20,7 @@ exports.get = function(key) {
 
 // uses methods findIndex() and splice() to locate and delete array element
 // returns deleted array, if any
-exports.delete = function(key) {
+exports.delete = (key) => {
     // locate index of key
     var index = books.findIndex((book) => {
         return book.title.toLowerCase() === key.toLowerCase()
