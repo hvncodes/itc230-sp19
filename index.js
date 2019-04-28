@@ -11,6 +11,8 @@ let handlebars =  require("express-handlebars");
 app.engine(".html", handlebars({extname: '.html'}));
 app.set("view engine", ".html");
 
+var books = require("./book.js");
+
 // send static file as response
 app.get('/', (req, res) => {
     res.type('text/html');
@@ -23,14 +25,20 @@ app.get('/about', (req, res) => {
     res.send('About page');
 });
 
-//
-app.get('/get', (req, res) => {
-    console.log(req.query); // display parsed querystring object
+// POST method via form submission, form action leads to detail, 
+app.post('/detail', (req, res) => {
+    //console.log(req.body); // display parsed form submission
+    var title = req.body.title;
+    var result = books.get(title);
+    res.render('details', {title: title, result: result});
 });
 
-// 
-app.post('/get', (req, res) => {
-    console.log(req.body); // display parsed form submission
+// GET method via details 
+app.get('/delete', (req,res) => {
+    //console.log(req.query); // display parsed querystring object
+    var title = req.query.title
+    var result = books.delete(title);
+    res.render('delete', {title: title, result: result, length: books.getAll().length});
 });
 
 // define 404 handler
@@ -42,5 +50,5 @@ app.use( (req,res) => {
 
 // start server listening for connections
 app.listen(process.env.PORT, process.env.IP, () => {
-    console.log('Express started'); 
+    //console.log('Express started'); 
 });
