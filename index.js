@@ -3,57 +3,44 @@ const express = require("express");
 const bodyParser = require("body-parser")
 const app = express();
 
-const http = require("http");
-const querystring = require('querystring');
-const fs = require("fs");
-http.createServer((req, res) => {
-    var books = require("./book.js");
-    // console.log(books.getAll());
-    // req.url = /get?hello=world
-    // after split: [ '/get', 'title=dune' ]
-    var url = req.url.split("?");
-    var q = querystring.parse(url[1]); // example: '/get'
-    var path = url[0]; // example: 'title=dune'
-    
-    switch (path) {
-        case '/':
-            fs.readFile("public/home.html", (err, data) => {
-                if (err) return console.error(err);
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.end(data.toString());
-            });
-            break;
-        case '/about':
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('About page');
-            break;
-        case '/get':
-            var qvalue = JSON.stringify(books.get(q.title));
-            var text;
-            if (qvalue !== undefined) {
-                text = qvalue;
-            } else {
-                text = "Not found."
-            }
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end(text);
-            break;
-        case '/delete':
-            //var oldBooksLength = Object.keys(books.getAll()).length;
-            var deleted = JSON.stringify(books.delete(q.title));
-            //var newBooksLength = Object.keys(books.getAll()).length;
-            var message;
-            if (deleted !== undefined) {
-                message = q.title + " removed";
-            } else {
-                message = q.title + " not removed"
-            }
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end(message);
-            break;
-        default:
-            res.writeHead(404, { 'Content-Type': 'text/plain' });
-            res.end('Not found.');
-            break;
-    }
-}).listen(process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3000); //used as app.get('port')
+app.use(express.static(__dirname + '/public')); // set location for static files
+app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
+
+let handlebars =  require("express-handlebars");
+app.engine(".html", handlebars({extname: '.html'}));
+app.set("view engine", ".html");
+
+// send static file as response
+app.get('/', (req, res) => {
+    res.type('text/html');
+    res.sendFile(__dirname + '/public/home.html'); 
+});
+
+// send plain text response
+app.get('/about', (req, res) => {
+    res.type('text/plain');
+    res.send('About page');
+});
+
+//
+app.get('/get', (req, res) => {
+    console.log(req.query); // display parsed querystring object
+});
+
+// 
+app.post('/get', (req, res) => {
+    console.log(req.body); // display parsed form submission
+});
+
+// define 404 handler
+app.use( (req,res) => {
+    res.type('text/plain'); 
+    res.status(404);
+    res.send('404 - Not found');
+});
+
+// start server listening for connections
+app.listen(process.env.PORT, process.env.IP, () => {
+    console.log('Express started'); 
+});
