@@ -1,4 +1,4 @@
-var books = [
+let books = [
     { title:"Dune", author:"Frank Herbert", pubdate:1965 },
     { title:"Moby Dick", author:"Herman Melville", pubdate:1851 },
     { title:"The Adventures of Tom Sawyer", author:"Mark Twain", pubdate:1876 },
@@ -22,7 +22,7 @@ exports.get = (key) => {
 // returns deleted array, if any
 exports.delete = (key) => {
     // locate index of key
-    var index = books.findIndex((book) => {
+    let index = books.findIndex((book) => {
         return book.title.toLowerCase() === key.toLowerCase()
     });
     
