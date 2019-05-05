@@ -21,4 +21,18 @@ describe("Book module", () => {
    const result = book.add({ title:"Dune", author:"Frank Herbert", pubdate:1965 });
    expect(result).to.deep.equal("fail");
  });
+ 
+ it("deletes book", () => {
+   const result = book.delete("dune");
+//   console.log(typeof result);
+//   console.log(result);
+//   console.log(typeof { title:"Dune", author:"Frank Herbert", pubdate:1965 });
+//   console.log({ title:"Dune", author:"Frank Herbert", pubdate:1965 });
+   expect(result).to.deep.equal({ title:"Dune", author:"Frank Herbert", pubdate:1965 });
+ });
+ 
+ it("deletes invalid book", () => {
+   const result = book.delete("fake");
+   expect(result).to.be.undefined;
+ });
 });

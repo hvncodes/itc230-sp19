@@ -19,7 +19,7 @@ exports.get = (key) => {
 };
 
 // uses methods findIndex() and splice() to locate and delete array element
-// returns deleted array, if any
+// returns deleted array element, if any
 exports.delete = (key) => {
     // locate index of key
     let index = books.findIndex((book) => {
@@ -32,7 +32,8 @@ exports.delete = (key) => {
     // thus, we check for index being negative or not and decide from there
     // delete array element at index of key
     if (index >= 0) {
-        return books.splice(index,1);
+        //splce returns an array of deleted elements, we want just the element
+        return books.splice(index,1)[0];
     } else { // index = -1
         return undefined;
     }
