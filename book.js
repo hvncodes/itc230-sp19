@@ -38,3 +38,12 @@ exports.delete = (key) => {
     }
     
 };
+
+exports.add = (key) => {
+    let status = "fail";
+    if (!books.get(key.title)) { //if doesn't exist
+        status = "success"
+        books.push(key);
+    }
+    return status;
+};
