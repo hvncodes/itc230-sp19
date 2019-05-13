@@ -11,6 +11,14 @@
         <input type="text" name="title" placeholder="Search by title...">
         <input type="submit" value="&#128269;">
     </form>
-    <p>Content goes here.</p>
+    {{#if items}}
+        <p>Books we have: </p>
+        {{#each items}}
+            <p><a href="/detail?title={{ title }}">{{ title }} by {{ author }}</a></p>
+        {{/each}}
+    {{else}}
+        <p>Content <i>should</i> go here.</p>
+    {{/if}}
+    <!--<pre>{{items}}</pre>-->
 </body>
 </html>
