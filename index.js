@@ -92,15 +92,15 @@ app.get('/delete', (req,res) => {
     var number = 1;
     Book.deleteOne({'title': title}, (err, item) => {
         if (err) return next(err);
-        console.log('num first: '+number); //1
+        //console.log('num first: '+number); //1
         Book.countDocuments({}, (err , count) => {
             if (err) return next(err);
             number = count;
-            console.log('num inside: '+number); //5
+            //console.log('num inside: '+number); //5
             res.render('delete', {title: title, result: item, length: number});
         });
         //console.log('num outside: '+number); //still 1???
-        //scope issues
+        //scope issues, something about block scopes
         //res.render('delete', {title: title, result: item, length: number});
     });
     
