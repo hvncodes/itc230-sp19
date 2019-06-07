@@ -13,20 +13,14 @@ app.set("view engine", ".html");
 
 let Book = require("./models/book-model");
 
+let routes = require('./routes.js')(app); // pass ‘app’ instance to the routes module
+
+app.use('/api', require('cors')()); // set Access-Control-Allow-Origin header for api route
+
 // renders home page with inventory
 app.get('/', (req, res) => {
     res.type('text/html');
-    
-    // uncomment to update/insert back a single record
-    // testing: 'dune' in delete case
-    /*
-    var newBook = {'title':'dune', 'author':'frank herbert', 'pubdate': 1963 }
-    Book.updateOne({'title':'dune'}, newBook, {upsert:true}, (err, result) => {
-      if (err) return next(err);
-      // console.log(result);
-    });
-    
-    */
+
     // return all records
     Book.find({}, (err, items) => {
         if (err) return next(err);
@@ -75,7 +69,6 @@ app.get('/delete', (req,res) => {
             res.render('delete', {title: title, result: item, length: number});
         });
     });
-    
 });
 
 // define 404 handler
