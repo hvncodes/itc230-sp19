@@ -1,45 +1,91 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>home</title>
-    <meta name="description" content="itc230 home page">
-    <meta name="keywords" content="html template">
-</head>
-<body>
-    {{#if update}}
-        {{#if status}} <!--(1) true is modified, (O) false is inserted -->
-            <div>
-                <p style="text-align: center">"{{title}}" Modified. Items: {{length}}</p>
-            </div>
-        {{else}}
-            <div>
-                <p style="text-align: center">"{{title}}" Inserted. Items: {{length}}</p>
-            </div>
-        {{/if}}
-    {{/if}}
-    {{#if json}}
-        <pre>{{items}}</pre>
-    {{else}}
-        <form action="/detail" method="post">
-            Books! <br>
-            <input type="text" name="title" placeholder="Search by title...">
-            <input type="submit" value="&#128269;">
-        </form>
-        {{#if items}}
-            <p>Books we have: </p>
-            {{#each items}}
-                <p><a href="/detail?title={{ title }}">{{ title }} by {{ author }}</a></p>
-            {{/each}}
-        {{else}}
-            <p>Content <i>should</i> go here.</p>
-        {{/if}}
-    {{/if}}
-    <p>&darr; REST API Add/Update Books &darr;</p>
-    <form action="/api/v1/add" method="post">
-        Title: <input type="text" name="title" value="dune"><br>
-        Author: <input type="text" name="author" value="frank herbert"><br>
-        Year: <input type="text" name="pubdate" value="1970"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-</body>
+    <head>
+        <title>React</title>
+        <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <style>
+            .books p:hover {
+                cursor: pointer;
+                color: green;
+            }
+        </style>
+    
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            class SearchBar extends React.Component {
+                render() {
+                    return (
+                        <form>
+                            Books! <br />
+                            <input type="text" name="title" placeholder="Search by title..." />
+                            <input type="submit" value="Search" />
+                        </form>
+                    );
+                }
+            }
+            
+            const Books = ({books, show}) => (
+                <div className="books">
+                    {books.map((book, i) => (
+                        <p key={i} id={book._id} onClick={show}>
+                            {book.title} by {book.author} ({book.pubdate})
+                        </p>
+                    ))}
+                </div>
+            )
+            
+            const Details = ({book}) => (
+                <form>
+                    Title: <input type="text" name="title" defaultValue={book.title} /><br />
+                    Author: <input type="text" name="author" defaultValue={book.author} /><br />
+                    Year: <input type="text" name="pubdate" defaultValue={book.pubdate} /><br /><br />
+                    <input type="submit" value="Submit" />
+                </form>
+            )
+
+            class App extends React.Component {
+                constructor(props) {  
+                    super(props);  
+                    this.state = {
+                        books: {{{items}}},
+                        book: {
+                            _id: '',
+                            title: '',
+                            author: '',
+                            pubdate: ''
+                        }
+                    };
+                    // This binding is necessary to make `this` work in the callback
+                    this.show = this.show.bind(this);
+                }
+                show(e) {
+                    let onClickShow = this.state.books.find((book) => {
+                        return book._id == e.target.id;
+                    });
+                    this.setState({book: onClickShow});
+                }
+                render() {
+                    return (
+                        <div>
+                            <SearchBar />
+                            <Books 
+                                books={this.state.books}
+                                show={this.show}
+                            />
+                            <Details book={this.state.book} />
+                        </div>
+                    );
+                }
+            }
+
+            ReactDOM.render(
+                <App />,
+                document.getElementById("root")
+            );
+        </script>
+    </body>
 </html>

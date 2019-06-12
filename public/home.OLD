@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>home</title>
+    <meta name="description" content="itc230 home page">
+    <meta name="keywords" content="html template">
+    
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    {{#if update}}
+        {{#if status}} <!--(1) true is modified, (O) false is inserted -->
+            <div>
+                <p style="text-align: center">"{{title}}" Modified. Items: {{length}}</p>
+            </div>
+        {{else}}
+            <div>
+                <p style="text-align: center">"{{title}}" Inserted. Items: {{length}}</p>
+            </div>
+        {{/if}}
+    {{/if}}
+    {{#if json}}
+        <pre>{{items}}</pre>
+    {{else}}
+        <form action="/detail" method="post">
+            Books! <br>
+            <input type="text" name="title" placeholder="Search by title...">
+            <input type="submit" value="&#128269;">
+        </form>
+        {{#if items}}
+            <p>Books we have: </p>
+            {{#each items}}
+                <p><a href="/detail?title={{ title }}">{{ title }} by {{ author }}</a></p>
+            {{/each}}
+        {{else}}
+            <p>Content <i>should</i> go here.</p>
+        {{/if}}
+    {{/if}}
+    <p>&darr; REST API Add/Update Books &darr;</p>
+    <form action="/api/v1/add" method="post">
+        Title: <input type="text" name="title" value="dune"><br>
+        Author: <input type="text" name="author" value="frank herbert"><br>
+        Year: <input type="text" name="pubdate" value="1970"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

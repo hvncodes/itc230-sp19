@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
     // return all records
     Book.find({}, (err, items) => {
         if (err) return next(err);
-        res.render('../public/home', {items: items});
+        res.render('../public/home', {items: JSON.stringify(items)});
     });
 });
 
